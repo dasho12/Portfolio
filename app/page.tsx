@@ -33,18 +33,8 @@ const generateParticleConfigs = (count: number) => {
 };
 
 const Page = () => {
-  const [scrolled, setScrolled] = useState(false);
-
   // Generate particle configs once using useMemo to avoid re-computation
   const particleConfigs = useMemo(() => generateParticleConfigs(20), []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <div className="scroll-smooth">
@@ -118,7 +108,6 @@ const Page = () => {
             textColor="white"
             borderColor="#7BE3E1"
             borderWidth={8}
-            // className="shadow-lg shadow-teal-500/20"
           />
         </motion.div>
 

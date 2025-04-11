@@ -67,8 +67,8 @@ const About = () => {
         >
           <h2 className="text-4xl font-bold mb-4 text-teal-400">About Me</h2>
           <p className="text-gray-300 text-lg leading-7 mb-4">
-            Hello! I'm a passionate front-end developer with a love for creating
-            modern, clean, and responsive user interfaces.
+            Hello! I&apos;m a passionate front-end developer with a love for
+            creating modern, clean, and responsive user interfaces.
           </p>
           <p className="text-gray-400 text-base leading-7">
             My goal is to build user-friendly, high-performance web and mobile
@@ -97,7 +97,6 @@ const About = () => {
                     <span className="bg-[#1e1e2a] px-4 py-2 rounded-full text-sm text-teal-300 inline-block">
                       {skill.name}
                     </span>
-                    {/* Optional: Show skill level as tooltip or small indicator */}
                     <div className="absolute -bottom-1 left-0 w-full">
                       <div
                         className="h-[3px] bg-teal-400 rounded-full"

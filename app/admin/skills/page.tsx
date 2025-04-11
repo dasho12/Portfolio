@@ -153,7 +153,7 @@ const SkillsPage = () => {
                 {skill.image ? (
                   <img
                     src={skill.image}
-                    alt={skill.name}
+                    alt={skill.name || "Skill Image"}
                     className="h-full w-full object-cover"
                   />
                 ) : (

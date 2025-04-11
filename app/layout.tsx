@@ -1,6 +1,5 @@
 "use client";
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ClientProviders from "@/app/ClientProviders";
 import Nav from "./nav";

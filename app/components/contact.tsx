@@ -129,9 +129,9 @@ const Contact = () => {
       >
         <h2 className="text-5xl font-bold mb-6 text-teal-400">Get In Touch</h2>
         <p className="text-gray-400 mb-14 text-lg max-w-2xl mx-auto">
-          I'm always open to discussing new projects, creative ideas, or
-          opportunities to be part of your vision. Let's build something amazing
-          together!
+          I&apos;m always open to discussing new projects, creative ideas, or
+          opportunities to be part of your vision. Let&apos;s build something
+          amazing together!
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -244,7 +244,7 @@ const Contact = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {socialLinks.map((link, index) => (
+            {socialLinks.map((link) => (
               <motion.a
                 key={link.name}
                 href={link.url}

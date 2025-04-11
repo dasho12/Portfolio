@@ -1,4 +1,3 @@
-// app/admin/projects/page.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -206,8 +205,8 @@ const ProjectsPage = () => {
                       Delete Project?
                     </h4>
                     <p className="text-gray-400 mb-4">
-                      Are you sure you want to delete "{project.title}"? This
-                      action cannot be undone.
+                      Are you sure you want to delete &quot;{project.title}
+                      &quot;? This action cannot be undone.
                     </p>
                     <div className="flex gap-3 justify-end">
                       <button

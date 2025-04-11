@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// Define Skill type based on your schema
 interface Skill {
   id: string;
   name: string;
@@ -18,7 +17,6 @@ const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
-  // Fetch skills data
   useEffect(() => {
     const fetchSkills = async () => {
       try {
@@ -41,14 +39,12 @@ const SkillsSection = () => {
     fetchSkills();
   }, []);
 
-  // Advanced scroll animations
   const headerY = useTransform(scrollYProgress, [0, 0.2], [100, 0]);
   const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
   const skillsY = useTransform(scrollYProgress, [0.1, 0.3], [100, 0]);
   const skillsOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
   const bgParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  // Mock categories - you can customize these
   const categories = [
     { id: "all", name: "All Skills" },
     { id: "frontend", name: "Frontend" },
@@ -56,12 +52,10 @@ const SkillsSection = () => {
     { id: "other", name: "Other" },
   ];
 
-  // Function to filter skills based on category
   const getFilteredSkills = () => {
     if (activeCategory === "all") return skills;
-    // This is just a mock implementation - you would need to add category to your skills data
+
     return skills.filter((skill) => {
-      // Mock categorization based on name for demonstration
       if (
         activeCategory === "frontend" &&
         ["React", "HTML", "CSS", "JavaScript", "Next.js", "Vue"].some((tech) =>
@@ -102,18 +96,15 @@ const SkillsSection = () => {
     });
   };
 
-  // Get filtered and sorted skills
   const displayedSkills = getFilteredSkills().sort((a, b) => b.level - a.level);
 
   return (
     <div className="w-full min-h-screen relative bg-gradient-to-b from-[#121218] to-[#1a1a24] overflow-hidden py-32">
-      {/* Animated background elements */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <motion.div
           className="absolute w-full h-full bg-[url('/images/grid-pattern.png')] opacity-5"
           style={{ y: bgParallax }}
         />
-
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-20 right-10 w-72 h-72 bg-teal-500/5 rounded-full blur-3xl" />
           <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
@@ -122,7 +113,6 @@ const SkillsSection = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        {/* Header Section */}
         <motion.div
           className="text-center mb-20"
           style={{ y: headerY, opacity: headerOpacity }}
@@ -144,13 +134,12 @@ const SkillsSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            I've cultivated a diverse set of skills throughout my journey as a
-            developer. Here's an overview of my technical expertise and
-            proficiency levels.
+            I&apos;ve cultivated a diverse set of skills throughout my journey
+            as a developer. Here&apos;s an overview of my technical expertise
+            and proficiency levels.
           </motion.p>
         </motion.div>
 
-        {/* Category Filter */}
         <motion.div
           className="flex justify-center mb-16 flex-wrap gap-3"
           initial={{ opacity: 0, y: 20 }}
@@ -174,7 +163,6 @@ const SkillsSection = () => {
           ))}
         </motion.div>
 
-        {/* Loading and Error States */}
         {loading ? (
           <div className="flex justify-center items-center h-[300px]">
             <div className="relative w-20 h-20">
@@ -202,20 +190,19 @@ const SkillsSection = () => {
                 onMouseLeave={() => setHoveredSkill(null)}
               >
                 <motion.div
-                  className={`relative overflow-hidden rounded-2xl backdrop-blur-sm bg-white/5 border border-white/10 p-6 h-full transition-all duration-300`}
+                  className="relative overflow-hidden rounded-2xl backdrop-blur-sm bg-white/5 border border-white/10 p-6 h-full transition-all duration-300"
                   whileHover={{
                     y: -8,
                     boxShadow: "0 20px 40px -15px rgba(0, 206, 201, 0.2)",
                     borderColor: "rgba(0, 206, 201, 0.3)",
                   }}
                 >
-                  {/* Skill header with icon */}
                   <div className="flex items-center mb-5">
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-teal-500/20 to-cyan-500/20 backdrop-blur-xl border border-white/10 flex items-center justify-center mr-4 overflow-hidden">
                       {skill.image ? (
                         <img
                           src={skill.image}
-                          alt={skill.name}
+                          alt={skill.name || "Skill Image"}
                           className="w-7 h-7 object-contain"
                         />
                       ) : (
@@ -227,7 +214,6 @@ const SkillsSection = () => {
                     </h3>
                   </div>
 
-                  {/* Skill level indicator */}
                   <div className="mt-2">
                     <div className="flex justify-between mb-2">
                       <span className="text-gray-300 text-sm font-medium">
@@ -265,7 +251,6 @@ const SkillsSection = () => {
                     </div>
                   </div>
 
-                  {/* Skill level category */}
                   <div className="mt-6">
                     <div
                       className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
@@ -288,7 +273,6 @@ const SkillsSection = () => {
                     </div>
                   </div>
 
-                  {/* Background decorative elements */}
                   <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-r from-teal-500/5 to-cyan-500/5 blur-xl"></div>
 
                   {hoveredSkill === skill.id && (
@@ -305,7 +289,6 @@ const SkillsSection = () => {
           </motion.div>
         )}
 
-        {/* Bottom section with call to action */}
         <motion.div
           className="text-center mt-24 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
@@ -317,9 +300,9 @@ const SkillsSection = () => {
             Looking for specific expertise?
           </h3>
           <p className="text-gray-400 mb-8">
-            I'm constantly expanding my skill set and adapting to new
-            technologies. If you don't see a skill you're looking for, feel free
-            to ask!
+            I&apos;m constantly expanding my skill set and adapting to new
+            technologies. If you don&apos;t see a skill you&apos;re looking for,
+            feel free to ask!
           </p>
           <motion.a
             href="#contact"

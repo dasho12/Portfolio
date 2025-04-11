@@ -37,8 +37,12 @@ export default function NewSkillPage() {
       }
 
       router.push("/admin/skills");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Алдаа гарлаа. Дахин оролдоно уу.");
+      }
     } finally {
       setLoading(false);
     }
