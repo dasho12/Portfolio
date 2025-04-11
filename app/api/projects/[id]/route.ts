@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/lib/auth"; // ← authOptions-ийг импортлоорой
+import { authOptions } from "@/app/lib/auth"; // Make sure this path is correct
 
 const prisma = new PrismaClient();
 
@@ -10,7 +10,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const session = await getServerSession(authOptions); // authOptions-ийг ашиглах
+  // In Next.js App Router, getServerSession is called differently
+  const session = await getServerSession(authOptions);
 
   // Check if user is authenticated
   if (!session) {
@@ -43,7 +44,7 @@ export async function PUT(
 
     return NextResponse.json(updatedProject);
   } catch (error) {
-    console.error("Error updating project:", error); // Алдааг хадгалж, лог хийх
+    console.error("Error updating project:", error);
     return NextResponse.json(
       { error: "Failed to update project" },
       { status: 500 }
@@ -56,7 +57,7 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const session = await getServerSession(authOptions); // authOptions-ийг ашиглах
+  const session = await getServerSession(authOptions);
 
   // Check if user is authenticated
   if (!session) {
@@ -74,7 +75,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "Project deleted successfully" });
   } catch (error) {
-    console.error("Error deleting project:", error); // Алдааг хадгалж, лог хийх
+    console.error("Error deleting project:", error);
     return NextResponse.json(
       { error: "Failed to delete project" },
       { status: 500 }
