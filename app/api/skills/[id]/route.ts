@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // authOptions-ийг импортлоорой
 
 const prisma = new PrismaClient();
 
@@ -9,7 +10,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions); // authOptions-ийг ашиглах
 
   // Check if user is authenticated
   if (!session) {
@@ -48,6 +49,7 @@ export async function PUT(
 
     return NextResponse.json(updatedSkill);
   } catch (error) {
+    console.error("Error updating skill:", error); // Алдааг хадгалж, лог хийх
     return NextResponse.json(
       { error: "Failed to update skill" },
       { status: 500 }
@@ -60,7 +62,7 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions); // authOptions-ийг ашиглах
 
   // Check if user is authenticated
   if (!session) {
@@ -78,6 +80,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "Skill deleted successfully" });
   } catch (error) {
+    console.error("Error deleting skill:", error); // Алдааг хадгалж, лог хийх
     return NextResponse.json(
       { error: "Failed to delete skill" },
       { status: 500 }

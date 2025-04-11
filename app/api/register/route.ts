@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
   try {
     const { email, name, password } = await req.json();
 
-    // Хэрэглэгчийн оруулсан мэдээлэл дутуу эсэхийг шалгах
     if (!email || !name || !password) {
       return NextResponse.json(
         { error: "Бүх талбарыг бөглөнө үү" },
@@ -16,22 +15,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Хэрэглэгч аль хэдийн бүртгэлтэй эсэхийг шалгах
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "Энд имэйл аль хэдийн бүртгэгдсэн байна" },
+        { error: "Энэ имэйл аль хэдийн бүртгэгдсэн байна" },
         { status: 400 }
       );
     }
 
-    // Нууц үгийг хэшлэх
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Шинэ хэрэглэгчийг өгөгдлийн санд хадгалах
     const user = await prisma.user.create({
       data: {
         email,
@@ -48,6 +42,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
+    console.error("POST /api/register алдаа:", error); // ← ашиглагдаж буй хувилбар
     return NextResponse.json(
       { error: "Бүртгэл амжилтгүй боллоо" },
       { status: 500 }

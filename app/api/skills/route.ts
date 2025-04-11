@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route"; // 🔥 ЭНЭ мөрийг нэм
+import { authOptions } from "../auth/[...nextauth]/route"; // 🔥 authOptions импорт
 
 const prisma = new PrismaClient();
 
@@ -37,6 +37,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validate level (1-100)
+    if (level < 1 || level > 100) {
+      return NextResponse.json(
+        { error: "Level must be between 1 and 100" },
+        { status: 400 }
+      );
+    }
+
     const skill = await prisma.skill.create({
       data: {
         name,
@@ -47,6 +55,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(skill, { status: 201 });
   } catch (error) {
+    console.error("POST /api/skills error:", error); // Алдааг бүртгэх
     return NextResponse.json(
       { error: "Failed to create skill" },
       { status: 500 }

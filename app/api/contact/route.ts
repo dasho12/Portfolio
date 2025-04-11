@@ -22,6 +22,7 @@ export async function GET() {
 
     return NextResponse.json(contacts);
   } catch (error) {
+    console.error("Error fetching contact requests:", error); // Алдааг хадгалж, лог хийх
     return NextResponse.json(
       { error: "Failed to fetch contact requests" },
       { status: 500 }
@@ -59,6 +60,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(contact, { status: 201 });
   } catch (error) {
+    console.error("Error submitting contact request:", error); // Алдааг хадгалж, лог хийх
     return NextResponse.json(
       { error: "Failed to submit contact request" },
       { status: 500 }
