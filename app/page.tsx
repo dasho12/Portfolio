@@ -1,103 +1,177 @@
+"use client";
+import React, { useEffect, useState, useMemo } from "react";
+import Triangle from "./components/Triangle";
 import Image from "next/image";
+import Pact from "./components/Pact";
+import Project from "./components/project";
+import About from "./components/about";
+import Contact from "./components/contact";
+import { motion } from "framer-motion";
 
-export default function Home() {
+// Precompute particle configurations to ensure consistency
+const generateParticleConfigs = (count: number) => {
+  return [...Array(count)].map(() => ({
+    initial: {
+      x: `${Math.random() * 100}%`,
+      y: `${Math.random() * 100}%`,
+      opacity: 0.3, // Explicitly a number
+    },
+    animate: {
+      x: [
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+      ],
+      y: [
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+      ],
+      opacity: [0.3, 0.8, 0.3], // Explicitly numbers
+    },
+  }));
+};
+
+const Page = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  // Generate particle configs once using useMemo to avoid re-computation
+  const particleConfigs = useMemo(() => generateParticleConfigs(20), []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="scroll-smooth">
+      {/* 🟦 Hero Section */}
+      <div
+        id="top"
+        className="h-screen w-full flex flex-col bg-cover bg-center items-center justify-center relative overflow-hidden"
+        style={{
+          backgroundImage: "url('/images/1.png')",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        {/* Overlay with gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60 z-[1]"></div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+        {/* Animated particles */}
+        <div className="absolute inset-0 z-[2]">
+          {particleConfigs.map((config, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-teal-300 rounded-full opacity-70"
+              initial={config.initial}
+              animate={config.animate}
+              transition={{
+                duration: 10 + Math.random() * 20, // Duration can still be random
+                repeat: Infinity,
+                ease: "linear",
+              }}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        {/* 📝 PORTFOLIO text with animation */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 0.4, y: 0 }}
+          transition={{ duration: 1.5 }}
+          className="absolute text-white text-[11vw] font-semibold z-[5]"
+          style={{ letterSpacing: "6px" }}
+        >
+          PORTFOLIO
+        </motion.h1>
+
+        {/* 📷 Background image */}
+        <motion.div
+          className="absolute bottom-0 z-[6]"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 0.8 }}
+          transition={{ duration: 1.2, delay: 0.3 }}
         >
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/images/oohh.png"
+            alt="Background Image Behind Triangle"
+            width={500}
+            height={700}
+            className="object-contain"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        </motion.div>
+
+        {/* 🔺 Triangle with animation */}
+        <motion.div
+          className="z-10 mt-10"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <Triangle
+            size="lg"
+            color="none"
+            text="DASHZEWEG"
+            textColor="white"
+            borderColor="#7BE3E1"
+            borderWidth={8}
+            // className="shadow-lg shadow-teal-500/20"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-20 z-20 flex flex-col items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <span className="text-white/80 text-sm mb-2">SCROLL DOWN</span>
+          <motion.div
+            className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-1"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <motion.div
+              className="w-1 h-2 bg-teal-400 rounded-full"
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+          </motion.div>
+        </motion.div>
+
+        {/* 🔹 Bottom line with animation */}
+        <motion.div
+          className="z-10 absolute bottom-0 w-full p-3 bg-[#3C3F46]/90"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+        >
+          <motion.div
+            className="w-[70%] h-[2px] mx-[15%] bg-[#7BE3E1]"
+            initial={{ width: "0%", marginLeft: "50%" }}
+            animate={{ width: "70%", marginLeft: "15%" }}
+            transition={{ duration: 1.5, delay: 1 }}
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </motion.div>
+      </div>
+
+      {/* 🟨 Other Sections */}
+      <Pact />
+      <div id="projects">
+        <Project />
+      </div>
+      <div id="about">
+        <About />
+      </div>
+      <div id="contact">
+        <Contact />
+      </div>
     </div>
   );
-}
+};
+
+export default Page;
