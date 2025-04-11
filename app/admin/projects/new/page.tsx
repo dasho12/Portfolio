@@ -4,7 +4,12 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Save, ArrowLeft, Image, AlertCircle } from "lucide-react";
+import {
+  Save,
+  ArrowLeft,
+  Image as LucideImage,
+  AlertCircle,
+} from "lucide-react"; // Renamed 'Image' to avoid conflict with next/image
 import Link from "next/link";
 
 const NewProjectPage = () => {
@@ -121,10 +126,13 @@ const NewProjectPage = () => {
               />
               {formData.image && (
                 <div className="relative h-10 w-10 rounded overflow-hidden">
-                  <Image
+                  {/* SVG Icon */}
+                  <LucideImage
                     className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400"
                     size={20}
+                    aria-label="Project Image" // Use aria-label for accessibility
                   />
+                  {/* Image preview */}
                   <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{ backgroundImage: `url('${formData.image}')` }}

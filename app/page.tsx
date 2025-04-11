@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import Triangle from "./components/Triangle";
 import Image from "next/image";
 import Pact from "./components/Pact";

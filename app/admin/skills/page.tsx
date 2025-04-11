@@ -12,6 +12,7 @@ import {
   Search,
   Image as ImageIcon,
 } from "lucide-react";
+import Image from "next/image";
 
 // Define Skill type
 interface Skill {
@@ -151,10 +152,12 @@ const SkillsPage = () => {
               {/* Skill image */}
               <div className="h-16 w-16 rounded-lg bg-white/10 overflow-hidden">
                 {skill.image ? (
-                  <img
+                  <Image
                     src={skill.image}
                     alt={skill.name || "Skill Image"}
                     className="h-full w-full object-cover"
+                    width={64} // You can adjust the width and height as necessary
+                    height={64} // Adjust the height as necessary
                   />
                 ) : (
                   <div className="h-full w-full flex items-center justify-center text-gray-500">
@@ -205,9 +208,10 @@ const SkillsPage = () => {
                       Delete Skill?
                     </h4>
                     <p className="text-gray-400 mb-4">
-                      Are you sure you want to delete "{skill.name}"? This
-                      action cannot be undone.
+                      Are you sure you want to delete &quot;{skill.name}&quot;?
+                      This action cannot be undone.
                     </p>
+
                     <div className="flex gap-3 justify-end">
                       <button
                         onClick={() => setDeleteConfirm(null)}
