@@ -34,7 +34,7 @@ const LoginPage = () => {
 
       // Redirect to admin dashboard on success
       router.push("/admin/dashboard");
-    } catch (error) {
+    } catch (_) {
       setError("Something went wrong. Please try again.");
       setIsLoading(false);
     }
