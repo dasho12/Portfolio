@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    domains: ["blog.scottlogic.com", "th.bing.com"], // энд хэрэглэж буй зурагны hostname-ийг бичнэ
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

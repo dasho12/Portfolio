@@ -56,8 +56,6 @@ const Page = () => {
             <motion.div
               key={i}
               className="absolute w-1 h-1 bg-teal-300 rounded-full opacity-70"
-              initial={config.initial}
-              animate={config.animate}
               transition={{
                 duration: 10 + Math.random() * 20, // Duration can still be random
                 repeat: Infinity,
