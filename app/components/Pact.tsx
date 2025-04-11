@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 
 interface Skill {
   id: string;
@@ -200,10 +201,12 @@ const SkillsSection = () => {
                   <div className="flex items-center mb-5">
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-teal-500/20 to-cyan-500/20 backdrop-blur-xl border border-white/10 flex items-center justify-center mr-4 overflow-hidden">
                       {skill.image ? (
-                        <img
+                        <Image
                           src={skill.image}
                           alt={skill.name || "Skill Image"}
-                          className="w-7 h-7 object-contain"
+                          width={28}
+                          height={28}
+                          className="object-contain"
                         />
                       ) : (
                         <div className="w-7 h-7 rounded-full bg-gradient-to-r from-teal-400 to-cyan-300"></div>
