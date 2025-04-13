@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import pkg from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 
+const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 
 // GET all contact requests (admin only)
