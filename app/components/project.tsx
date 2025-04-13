@@ -80,7 +80,7 @@ const Projects = () => {
 
   return (
     <div
-      className="relative w-full min-h-screen bg-gradient-to-br from-[#2e2e38] via-[#1f1f29] to-[#121217] text-white py-24 px-4 md:px-8 lg:px-16 overflow-hidden"
+      className="relative w-full min-h-screen bg-gradient-to-br from-[#2e2e38] via-[#1f1f29] to-[#121217] text-white py-24 px-[155] md:px-8 lg:px-16 overflow-hidden"
       id="projects"
     >
       {/* Animated background patterns */}

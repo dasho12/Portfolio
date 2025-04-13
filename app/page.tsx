@@ -86,9 +86,10 @@ const Page = () => {
           <Image
             src="/images/oohh.png"
             alt="Background Image Behind Triangle"
-            width={500}
+            width={500} // Set to an approximate aspect ratio value
             height={700}
-            className="object-contain"
+            style={{ width: "auto" }}
+            className="object-contain h-[600]"
           />
         </motion.div>
 

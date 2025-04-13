@@ -100,10 +100,10 @@ const SkillsSection = () => {
   const displayedSkills = getFilteredSkills().sort((a, b) => b.level - a.level);
 
   return (
-    <div className="w-full min-h-screen relative bg-gradient-to-b from-[#121218] to-[#1a1a24] overflow-hidden py-32">
+    <div className="w-full min-h-screen px-[12%] relative bg-gradient-to-b from-[#121218] to-[#1a1a24] overflow-hidden py-32">
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <motion.div
-          className="absolute w-full h-full bg-[url('/images/grid-pattern.png')] opacity-5"
+          className="absolute w-full h-full  opacity-5"
           style={{ y: bgParallax }}
         />
         <div className="absolute top-0 left-0 w-full h-full">

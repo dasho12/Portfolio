@@ -50,7 +50,7 @@ const About = () => {
           viewport={{ once: true }}
         >
           <Image
-            src="/images/avatar.png" // өөрийн зургаар солиорой
+            src="/images/1.png" // өөрийн зургаар солиорой
             alt="Profile"
             fill
             className="object-cover"
