@@ -62,7 +62,7 @@ const ProjectsPage = () => {
   // Handle project deletion
   const handleDeleteProject = async (id: string) => {
     try {
-      const response = await fetch(`/api/projects/${id}`, {
+      const response = await fetch(`/api/projects?id=${id}`, {
         method: "DELETE",
       });
 

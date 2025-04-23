@@ -39,7 +39,7 @@ const About = () => {
   }, []);
 
   return (
-    <div className="bg-[#0f0f14] text-white py-24 px-4" id="about">
+    <div className="bg-[#0f0f14] text-white py-24 px-[15%]" id="about">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
         {/* Зураг */}
         <motion.div
@@ -77,7 +77,7 @@ const About = () => {
             real-world problems through design and code.
           </p>
 
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <h3 className="text-xl font-semibold mb-3 text-teal-400">
               My Skills
             </h3>
@@ -111,7 +111,7 @@ const About = () => {
                 )}
               </div>
             )}
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </div>

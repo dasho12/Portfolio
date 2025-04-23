@@ -62,3 +62,95 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+// DELETE skill (admin only)
+export async function DELETE(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Skill ID is required" },
+        { status: 400 }
+      );
+    }
+
+    await prisma.skill.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return NextResponse.json({ message: "Skill deleted successfully" });
+  } catch (error) {
+    console.error("DELETE /api/skills error:", error);
+    return NextResponse.json(
+      { error: "Failed to delete skill" },
+      { status: 500 }
+    );
+  }
+}
+
+// PATCH update skill (admin only)
+export async function PATCH(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Skill ID is required" },
+        { status: 400 }
+      );
+    }
+
+    const { name, level, image } = await req.json();
+
+    if (!name || !level || !image) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // Validate level (1-100)
+    if (level < 1 || level > 100) {
+      return NextResponse.json(
+        { error: "Level must be between 1 and 100" },
+        { status: 400 }
+      );
+    }
+
+    const skill = await prisma.skill.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name,
+        level,
+        image,
+      },
+    });
+
+    return NextResponse.json(skill);
+  } catch (error) {
+    console.error("PATCH /api/skills error:", error);
+    return NextResponse.json(
+      { error: "Failed to update skill" },
+      { status: 500 }
+    );
+  }
+}

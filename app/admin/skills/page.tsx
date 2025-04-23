@@ -13,6 +13,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // Define Skill type
 interface Skill {
@@ -29,6 +30,7 @@ const SkillsPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const router = useRouter();
 
   const fetchSkills = async () => {
     try {
@@ -58,8 +60,12 @@ const SkillsPage = () => {
   );
 
   const handleDeleteSkill = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this skill?")) {
+      return;
+    }
+
     try {
-      const response = await fetch(`/api/skills/${id}`, {
+      const response = await fetch(`/api/skills?id=${id}`, {
         method: "DELETE",
       });
 
@@ -67,11 +73,10 @@ const SkillsPage = () => {
         throw new Error("Failed to delete skill");
       }
 
-      fetchSkills();
-      setDeleteConfirm(null);
+      setSkills(skills.filter((skill) => skill.id !== id));
     } catch (error) {
       console.error("Error deleting skill:", error);
-      setError("Failed to delete skill. Please try again.");
+      alert("Failed to delete skill. Please try again.");
     }
   };
 
@@ -193,7 +198,7 @@ const SkillsPage = () => {
                   </button>
                 </Link>
                 <button
-                  onClick={() => setDeleteConfirm(skill.id)}
+                  onClick={() => handleDeleteSkill(skill.id)}
                   className="p-2 rounded-lg hover:bg-white/10 text-red-400 transition-colors"
                 >
                   <Trash2 size={18} />

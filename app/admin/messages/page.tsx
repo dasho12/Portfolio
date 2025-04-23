@@ -66,7 +66,7 @@ const MessagesPage = () => {
   // Delete message handler
   const handleDeleteMessage = async (id: string) => {
     try {
-      const response = await fetch(`/api/contact/${id}`, {
+      const response = await fetch(`/api/contact?id=${id}`, {
         method: "DELETE",
       });
 
