@@ -80,7 +80,7 @@ const Projects = () => {
 
   return (
     <div
-      className="relative w-full min-h-screen bg-gradient-to-br from-[#2e2e38] via-[#1f1f29] to-[#121217] text-white py-24 px-[15%] md:px-8 lg:px-16 overflow-hidden"
+      className="relative w-full min-h-screen bg-gradient-to-br from-[#2e2e38] via-[#1f1f29] to-[#121217] text-white py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-[15%] lg:px-16 overflow-hidden"
       id="projects"
     >
       {/* Animated background patterns */}
@@ -89,7 +89,7 @@ const Projects = () => {
         style={{ opacity: backgroundTrianglesOpacity }}
       >
         <motion.div
-          className="absolute -top-20 -left-20 opacity-10"
+          className="absolute -top-20 -left-20 opacity-10 scale-75 sm:scale-100"
           style={{ rotate: backgroundRotation }}
         >
           <Triangle
@@ -100,7 +100,7 @@ const Projects = () => {
           />
         </motion.div>
         <motion.div
-          className="absolute top-1/3 -right-40 opacity-10"
+          className="absolute top-1/3 -right-40 opacity-10 scale-75 sm:scale-100"
           style={{ rotate: backgroundRotation }}
         >
           <Triangle
@@ -111,7 +111,7 @@ const Projects = () => {
           />
         </motion.div>
         <motion.div
-          className="absolute -bottom-20 left-1/4 opacity-10"
+          className="absolute -bottom-20 left-1/4 opacity-10 scale-75 sm:scale-100"
           style={{ rotate: backgroundRotation }}
         >
           <Triangle
@@ -124,12 +124,12 @@ const Projects = () => {
       </motion.div>
 
       {/* Glow Circle Background */}
-      <div className="absolute top-[-150px] left-[-150px] w-[400px] h-[400px] bg-[#7BE3E1] opacity-20 rounded-full blur-[150px] z-0" />
-      <div className="absolute bottom-[-150px] right-[-150px] w-[400px] h-[400px] bg-[#7BE3E1] opacity-10 rounded-full blur-[200px] z-0" />
+      <div className="absolute top-[-150px] left-[-150px] w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-[#7BE3E1] opacity-20 rounded-full blur-[100px] sm:blur-[150px] z-0" />
+      <div className="absolute bottom-[-150px] right-[-150px] w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-[#7BE3E1] opacity-10 rounded-full blur-[150px] sm:blur-[200px] z-0" />
 
       {/* Title */}
       <motion.h1
-        className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300 text-center mb-20 z-10 relative"
+        className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300 text-center mb-12 sm:mb-16 md:mb-20 z-10 relative"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
@@ -139,19 +139,19 @@ const Projects = () => {
 
       {loading ? (
         <div className="flex justify-center items-center h-[50vh]">
-          <div className="w-16 h-16 border-4 border-teal-400 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-teal-400 border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : error ? (
-        <div className="text-center text-red-400 p-8 bg-white/5 rounded-xl max-w-3xl mx-auto">
+        <div className="text-center text-red-400 p-4 sm:p-8 bg-white/5 rounded-xl max-w-3xl mx-auto">
           <p>{error}</p>
         </div>
       ) : projects.length === 0 ? (
-        <div className="text-center text-gray-400 p-8 bg-white/5 rounded-xl max-w-3xl mx-auto">
+        <div className="text-center text-gray-400 p-4 sm:p-8 bg-white/5 rounded-xl max-w-3xl mx-auto">
           <p>No projects found. Check back soon!</p>
         </div>
       ) : (
         <motion.div
-          className="flex flex-col gap-32 z-10 relative max-w-6xl mx-auto"
+          className="flex flex-col gap-16 sm:gap-24 md:gap-32 z-10 relative max-w-6xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -162,18 +162,18 @@ const Projects = () => {
               key={project.id}
               className={`flex flex-col ${
                 index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-              } items-center gap-10 lg:gap-20`}
+              } items-center gap-6 sm:gap-8 md:gap-10 lg:gap-20`}
               variants={projectVariants}
               onMouseEnter={() => setActiveProject(project.id)}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Enhanced Project Media Section - MADE SMALLER */}
-              <div className="relative w-64 h-64 md:w-80 md:h-80">
-                {/* Background Glow Effect - Enhanced */}
+              {/* Project Media Section */}
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80">
+                {/* Background Glow Effect */}
                 {activeProject === project.id && (
                   <motion.div
-                    className="absolute inset-0 rounded-full bg-gradient-to-tr from-teal-400 to-cyan-300 opacity-20 blur-3xl -z-10"
+                    className="absolute inset-0 rounded-full bg-gradient-to-tr from-teal-400 to-cyan-300 opacity-20 blur-2xl sm:blur-3xl -z-10"
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{
                       scale: [1, 1.1, 1],
@@ -187,15 +187,15 @@ const Projects = () => {
                   />
                 )}
 
-                {/* Project Image Container with Triangle Clip Path */}
+                {/* Project Image Container */}
                 <motion.div
                   className="relative w-full h-full"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8 }}
                 >
-                  {/* Main Image - Full Size */}
-                  <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl">
+                  {/* Main Image */}
+                  <div className="absolute inset-0 rounded-xl overflow-hidden shadow-xl sm:shadow-2xl">
                     <motion.img
                       src={project.image}
                       alt={project.title}
@@ -206,13 +206,11 @@ const Projects = () => {
                       }}
                       transition={{ duration: 0.8 }}
                     />
-                    {/* Subtle Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#121217]/80 via-[#121217]/30 to-transparent" />
                   </div>
 
-                  {/* Triangle Overlay with Glow Effects */}
+                  {/* Triangle Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    {/* Inner Decorative Triangle */}
                     <motion.div
                       className="absolute inset-0 flex items-center justify-center scale-75"
                       initial={{ opacity: 0, rotate: 180 }}
@@ -232,16 +230,15 @@ const Projects = () => {
                     </motion.div>
                   </div>
 
-                  {/* REPLACED DECORATIVE RECTANGLES WITH TRIANGLES */}
-                  {/* Bottom-right triangle */}
+                  {/* Decorative Triangles */}
                   <motion.div
-                    className="absolute -bottom-4 -right-4"
+                    className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4"
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 0.8 }}
                     transition={{ delay: 0.4, duration: 0.5 }}
                   >
                     <div
-                      className="w-16 h-16 opacity-80"
+                      className="w-12 h-12 sm:w-16 sm:h-16 opacity-80"
                       style={{
                         clipPath: "polygon(100% 0, 0% 100%, 100% 100%)",
                         background:
@@ -250,15 +247,14 @@ const Projects = () => {
                     />
                   </motion.div>
 
-                  {/* Top-left triangle */}
                   <motion.div
-                    className="absolute -top-3 -left-3"
+                    className="absolute -top-2 -left-2 sm:-top-3 sm:-left-3"
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 0.7 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
                   >
                     <div
-                      className="w-8 h-8 opacity-70"
+                      className="w-6 h-6 sm:w-8 sm:h-8 opacity-70"
                       style={{
                         clipPath: "polygon(0 0, 0 100%, 100% 0)",
                         backgroundColor: "#7BE3E1",
@@ -267,7 +263,7 @@ const Projects = () => {
                   </motion.div>
                 </motion.div>
 
-                {/* Level indicator - Enhanced */}
+                {/* Level indicator */}
                 {project.level && (
                   <motion.div
                     initial={{ opacity: 0, x: index % 2 === 0 ? 20 : -20 }}
@@ -277,13 +273,13 @@ const Projects = () => {
                       index % 2 === 0
                         ? "right-0 translate-x-1/2"
                         : "left-0 -translate-x-1/2"
-                    } top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 z-30`}
+                    } top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 sm:gap-3 z-30 hidden md:flex`}
                   >
                     <div className="flex flex-col items-center transform rotate-90">
-                      <span className="text-teal-300 text-sm font-medium tracking-wider whitespace-nowrap mb-2 uppercase">
+                      <span className="text-teal-300 text-xs sm:text-sm font-medium tracking-wider whitespace-nowrap mb-1 sm:mb-2 uppercase">
                         Complexity
                       </span>
-                      <div className="h-3 w-32 bg-[#1A1A22] rounded-full overflow-hidden shadow-lg shadow-cyan-900/20">
+                      <div className="h-2 sm:h-3 w-24 sm:w-32 bg-[#1A1A22] rounded-full overflow-hidden shadow-lg shadow-cyan-900/20">
                         <motion.div
                           className="h-full bg-gradient-to-r from-teal-400 to-cyan-300"
                           initial={{ width: 0 }}
@@ -292,25 +288,11 @@ const Projects = () => {
                             duration: 1.5,
                             delay: 0.8,
                           }}
-                        >
-                          <motion.div
-                            className="absolute top-0 right-0 h-full w-6 bg-white/70"
-                            animate={{
-                              opacity: [0.7, 0, 0.7],
-                              x: [0, -100, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              repeatType: "loop",
-                              ease: "easeInOut",
-                            }}
-                          />
-                        </motion.div>
+                        />
                       </div>
                     </div>
                     <motion.span
-                      className="text-white text-sm font-medium bg-[#1A1A22] px-2 py-1 rounded-md shadow-md"
+                      className="text-white text-xs sm:text-sm font-medium bg-[#1A1A22] px-2 py-1 rounded-md shadow-md"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1.2 }}
@@ -321,32 +303,34 @@ const Projects = () => {
                 )}
               </div>
 
-              {/* Description Section - Enhanced */}
+              {/* Description Section */}
               <motion.div
-                className="flex flex-col gap-6 max-w-xl text-gray-300"
+                className="flex flex-col gap-4 sm:gap-6 max-w-xl text-gray-300"
                 initial={{ opacity: 0, x: index % 2 === 0 ? 30 : -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">
+                <h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">
                   {project.title}
                 </h2>
 
                 {/* Content Divider */}
                 <div className="flex items-center gap-2">
-                  <div className="w-12 h-1 bg-teal-400 rounded-full" />
-                  <div className="w-3 h-3 bg-cyan-300 rounded-full" />
+                  <div className="w-8 sm:w-12 h-1 bg-teal-400 rounded-full" />
+                  <div className="w-2 sm:w-3 h-2 sm:h-3 bg-cyan-300 rounded-full" />
                 </div>
 
-                <p className="text-lg leading-relaxed">{project.description}</p>
+                <p className="text-base sm:text-lg leading-relaxed">
+                  {project.description}
+                </p>
 
-                {/* Tech Stack Tags - Enhanced */}
+                {/* Tech Stack Tags */}
                 {project.techStack && (
                   <div className="flex flex-wrap gap-2 mt-2">
                     {project.techStack.map((tech, i) => (
                       <motion.span
                         key={i}
-                        className="px-4 py-1.5 bg-gradient-to-r from-[#2D2D35] to-[#393941] rounded-full text-teal-300 text-sm font-medium shadow-md"
+                        className="px-3 sm:px-4 py-1 sm:py-1.5 bg-gradient-to-r from-[#2D2D35] to-[#393941] rounded-full text-teal-300 text-xs sm:text-sm font-medium shadow-md"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.7 + i * 0.1 }}
@@ -361,10 +345,10 @@ const Projects = () => {
                   </div>
                 )}
 
-                {/* Project Links - Enhanced */}
-                <div className="flex flex-wrap gap-4 mt-6">
+                {/* Project Links */}
+                <div className="flex flex-wrap gap-3 sm:gap-4 mt-4 sm:mt-6">
                   <motion.button
-                    className="px-6 py-3 rounded-full bg-gradient-to-r from-teal-400 to-cyan-300 hover:from-teal-300 hover:to-cyan-200 text-black font-semibold transition duration-300 shadow-lg shadow-cyan-900/20"
+                    className="px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-teal-400 to-cyan-300 hover:from-teal-300 hover:to-cyan-200 text-black text-sm sm:text-base font-semibold transition duration-300 shadow-lg shadow-cyan-900/20"
                     whileHover={{
                       scale: 1.05,
                       boxShadow: "0 10px 25px -5px rgba(123, 227, 225, 0.4)",
@@ -380,7 +364,7 @@ const Projects = () => {
                       <span>Live Demo</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
+                        className="h-3 w-3 sm:h-4 sm:w-4"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -393,7 +377,7 @@ const Projects = () => {
                     </a>
                   </motion.button>
                   <motion.button
-                    className="px-6 py-3 rounded-full bg-transparent border-2 border-teal-400 hover:bg-teal-400/10 text-teal-300 font-semibold transition duration-300"
+                    className="px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-transparent border-2 border-teal-400 hover:bg-teal-400/10 text-teal-300 text-sm sm:text-base font-semibold transition duration-300"
                     whileHover={{ scale: 1.05, borderColor: "#7BE3E1" }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -408,7 +392,7 @@ const Projects = () => {
                       <span>GitHub Code</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
+                        className="h-3 w-3 sm:h-4 sm:w-4"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -419,10 +403,10 @@ const Projects = () => {
                 </div>
 
                 {/* Created Date */}
-                <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
+                <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 flex items-center gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
+                    className="h-3 w-3 sm:h-4 sm:w-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

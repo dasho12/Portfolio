@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import Triangle from "./components/Triangle";
 import Image from "next/image";
 import Pact from "./components/Pact";
@@ -14,7 +14,7 @@ const generateParticleConfigs = (count: number) => {
     initial: {
       x: `${Math.random() * 100}%`,
       y: `${Math.random() * 100}%`,
-      opacity: 0.3, // Explicitly a number
+      opacity: 0.3,
     },
     animate: {
       x: [
@@ -27,21 +27,25 @@ const generateParticleConfigs = (count: number) => {
         `${Math.random() * 100}%`,
         `${Math.random() * 100}%`,
       ],
-      opacity: [0.3, 0.8, 0.3], // Explicitly numbers
+      opacity: [0.3, 0.8, 0.3],
     },
   }));
 };
 
 const Page = () => {
-  // Generate particle configs once using useMemo to avoid re-computation
+  const [mounted, setMounted] = useState(false);
   const particleConfigs = useMemo(() => generateParticleConfigs(20), []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="scroll-smooth">
       {/* 🟦 Hero Section */}
       <div
         id="top"
-        className="h-screen w-full flex flex-col bg-cover bg-center items-center justify-center relative overflow-hidden"
+        className="min-h-screen w-full flex flex-col bg-cover bg-center items-center justify-center relative overflow-hidden"
         style={{
           backgroundImage: "url('/images/1.png')",
           backgroundAttachment: "fixed",
@@ -50,27 +54,31 @@ const Page = () => {
         {/* Overlay with gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60 z-[1]"></div>
 
-        {/* Animated particles */}
-        <div className="absolute inset-0 z-[2]">
-          {particleConfigs.map((config, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-teal-300 rounded-full opacity-70"
-              transition={{
-                duration: 10 + Math.random() * 20, // Duration can still be random
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          ))}
-        </div>
+        {/* Animated particles - Only render on client side */}
+        {mounted && (
+          <div className="absolute inset-0 z-[2]">
+            {particleConfigs.map((config, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-teal-300 rounded-full opacity-70"
+                initial={config.initial}
+                animate={config.animate}
+                transition={{
+                  duration: 10 + Math.random() * 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         {/* 📝 PORTFOLIO text with animation */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 0.4, y: 0 }}
           transition={{ duration: 1.5 }}
-          className="absolute text-white text-[11vw] font-semibold z-[5]"
+          className="absolute text-white text-[8vw] md:text-[11vw] font-semibold z-[5] text-center px-4"
           style={{ letterSpacing: "6px" }}
         >
           PORTFOLIO
@@ -78,7 +86,7 @@ const Page = () => {
 
         {/* 📷 Background image */}
         <motion.div
-          className="absolute bottom-0 z-[6]"
+          className="absolute bottom-0 z-[6] w-full flex justify-center"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 0.8 }}
           transition={{ duration: 1.2, delay: 0.3 }}
@@ -86,16 +94,16 @@ const Page = () => {
           <Image
             src="/images/oohh.png"
             alt="Background Image Behind Triangle"
-            width={500} // Set to an approximate aspect ratio value
+            width={500}
             height={700}
-            style={{ width: "auto" }}
-            className="object-contain h-[600]"
+            className="object-contain h-[400px] md:h-[600px] w-auto"
+            priority
           />
         </motion.div>
 
         {/* 🔺 Triangle with animation */}
         <motion.div
-          className="z-10 mt-10"
+          className="z-10 mt-10 px-4"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -112,14 +120,16 @@ const Page = () => {
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-20 z-20 flex flex-col items-center"
+          className="absolute bottom-10 md:bottom-20 z-20 flex flex-col items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
         >
-          <span className="text-white/80 text-sm mb-2">SCROLL DOWN</span>
+          <span className="text-white/80 text-xs md:text-sm mb-2">
+            SCROLL DOWN
+          </span>
           <motion.div
-            className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-1"
+            className="w-5 h-8 md:w-6 md:h-10 border-2 border-white/50 rounded-full flex justify-center p-1"
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
@@ -133,15 +143,15 @@ const Page = () => {
 
         {/* 🔹 Bottom line with animation */}
         <motion.div
-          className="z-10 absolute bottom-0 w-full p-3 bg-[#3C3F46]/90"
+          className="z-10 absolute bottom-0 w-full p-2 md:p-3 bg-[#3C3F46]/90"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
           <motion.div
-            className="w-[70%] h-[2px] mx-[15%] bg-[#7BE3E1]"
+            className="w-[90%] md:w-[70%] h-[2px] mx-[5%] md:mx-[15%] bg-[#7BE3E1]"
             initial={{ width: "0%", marginLeft: "50%" }}
-            animate={{ width: "70%", marginLeft: "15%" }}
+            animate={{ width: "90%", marginLeft: "5%" }}
             transition={{ duration: 1.5, delay: 1 }}
           />
         </motion.div>
