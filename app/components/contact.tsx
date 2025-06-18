@@ -13,6 +13,7 @@ import {
   Github,
   ExternalLink,
 } from "lucide-react";
+import { PrismaClient } from "@prisma/client";
 
 const Contact = () => {
   const [name, setName] = useState("");
